@@ -1,0 +1,64 @@
+<header>
+    <mat-toolbar color="primary">
+        <!-- <div class="menuItems">
+            <span>My App</span>
+            <div>
+                <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                    <mat-icon>share</mat-icon>
+                </button>
+            </div>
+        </div> -->
+        <span>Taylor links</span>
+        <div>
+            <button *ngIf="isUserAuthenticated" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <!-- <a routerLinkActive="list-item-active" routerLink="/admin"></a> -->
+                <mat-icon routerLinkActive="list-item-active" routerLink="/admin">admin_panel_settings</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                <mat-icon>login</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+</header>
+<div class="shortenURL">
+    <form style="text-align: center;" action="">
+        <h4>Shorten the URLs here</h4>
+        <div fxLayout="row" fxLayoutAligh="space-between center" fxLayoutGap="15px">
+            <input style="width: 220px;" type="text" name="actualUrl" [(ngModel)]="actualUrl" placeholder="URL to short | e.g: https://trim.link ">
+            <button (click)="shortenUserLink()" mat-raised-button color="primary">Generate</button>
+        </div>
+        <div  *ngIf="shortenUrl">
+            <br>
+            <p style="color: green;">Shorten link: 
+                <a href="http://localhost:4200/{{shortenUrl}}" target="_blank">http://localhost:4200/{{shortenUrl}}</a>
+                <button style="margin-left: 10px;" type="button" mat-raised-button [cdkCopyToClipboard]="customShortenUrl" (click)="copiedMessage()">
+                    <mat-icon>file_copy</mat-icon>
+                </button>
+            </p>
+        </div>
+        <br>
+        <p>Want to create custom short URLs?</p>
+        <button mat-raised-button color="warn" routerLink="/access/signup">Join US</button>
+    </form>
+</div>
+<!-- <div class="shortenURL">
+    <form action="">
+        <mat-form-field appearance="fill">
+            <h4>Shorten the URLs here</h4>
+            <div fxLayout="row" fxLayoutAligh="space-between center">
+                <input type="text" placeholder="URL">
+                <button mat-button color="primary">Generate</button>
+            </div>
+            <p>Want to create custom short URLs?</p>
+            <button mat-button color="Warn">Join US</button>
+        </mat-form-field>
+    </form>
+</div> -->
+<footer>
+    <mat-divider></mat-divider>
+    <br>
+    Made with &#10084;&#65039; by D4Dev
+</footer>

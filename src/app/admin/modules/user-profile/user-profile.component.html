@@ -1,0 +1,79 @@
+<div>
+    <h1>Profile</h1>
+    <div>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Personal Info</mat-card-title>
+                <!-- <p>Edit</p> -->
+                <button mat-button (click)="updateUserDetails()">Edit</button>
+            </mat-card-header>
+            <mat-card-content class="info">
+                <div>
+                    <mat-card-subtitle>First name</mat-card-subtitle>
+                    <p>{{userInfo?.firstName}}</p>
+                </div>
+                <br>
+                <div>
+                    <mat-card-subtitle>Last name</mat-card-subtitle>
+                    <p>{{userInfo?.lastName}}</p>
+                </div>
+                <br>
+                <div>
+                    <mat-card-subtitle>Country</mat-card-subtitle>
+                    <p>{{userInfo?.country}}</p>
+                </div>
+                <br>
+                <div>
+                    <mat-card-subtitle>Phone number</mat-card-subtitle>
+                    <p>{{userInfo?.phoneNumber}}</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Credentials</mat-card-title>
+                <!-- <p>Edit</p> -->
+            </mat-card-header>
+            <mat-card-content>
+                <div>
+                    <mat-card-subtitle>Email</mat-card-subtitle>
+                    <p>{{userInfo?.email}}</p>
+                </div>
+                <div>
+                    <mat-card-subtitle>Password</mat-card-subtitle>
+                    <p>{{password}}</p>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="updateUserCredentials()"> Change your password</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Subscription</mat-card-title>
+                <!-- <p>Edit</p> -->
+            </mat-card-header>
+            <mat-card-content>
+                <div>
+                    <mat-card-subtitle>Plan</mat-card-subtitle>
+                    <p>{{userInfo?.plan}}</p>
+                </div>
+                <div>
+                    <mat-card-subtitle>Status</mat-card-subtitle>
+                    <p [ngStyle]="{'color' : userInfo?.planStatus === 0 ? 'red' : 'green'}">{{userInfo?.planStatus === 0 ? 'Expired' : 'Active'}}</p>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="updateUserSubscription()">Upgrade plan</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <a href="#">Deactive your account</a>
+        <br>
+        <br>
+    </div>
+</div>
+
+{{userInfo|json}}

@@ -1,0 +1,28 @@
+.shortenURL{
+    display: flex;
+    height: 84%;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+footer {
+    // padding: 20px;
+    text-align: center;
+    height: 50px;
+}
+
+.mat-snack-bar-container {
+    width: 100px !important;
+  }
+
+@media screen and (max-width: 992px) {
+    .shortenURL{
+        height: 82%;
+    }
+  }
