@@ -32,7 +32,7 @@
         <br>
     </div>
     <div *ngIf="customUrlSuccessMessage">
-        <p style="color: green;">Shorten link: <a href="{{customShortenUrl}}">{{customShortenUrl}}</a><button style="margin-left: 10px;" type="button" mat-raised-button [cdkCopyToClipboard]="customShortenUrl"><mat-icon>file_copy</mat-icon></button></p>
+        <p style="color: green;">Shorten link: <a href="{{customShortenUrl}}">{{customShortenUrl}}</a><button style="margin-left: 10px;" type="button" mat-raised-button (click)="copiedMessage()"><mat-icon>file_copy</mat-icon></button></p>
         <br>
     </div>
     <button type="submit" mat-raised-button color="primary">Generate</button>

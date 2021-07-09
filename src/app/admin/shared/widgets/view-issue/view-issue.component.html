@@ -1,9 +1,19 @@
 <div class="view">
-    <h2 mat-dialog-title>View Issue</h2>
+    <h2 mat-dialog-title>View Issue details</h2>
  
     <mat-dialog-content style="overflow: hidden !important; max-height: initial;">
         <h2>Title</h2>
         <p>{{this.data.issueTitle}}</p>
+        <div class="details">
+            <div>
+                <h2>Date</h2>
+                <p>{{this.data.cre_rec_ts | date: 'dd-MM-yyyy'}}</p>
+            </div>
+            <div>
+                <h2>Status</h2>
+                <p>{{this.data.issueStatus}}</p>
+            </div>
+        </div>
         <h2>Description</h2>
         <p>{{this.data.issueDescription}}</p>
     </mat-dialog-content>

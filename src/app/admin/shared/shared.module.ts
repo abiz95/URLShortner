@@ -44,6 +44,8 @@ import { ViewIssueComponent } from './widgets/view-issue/view-issue.component';
 import { SaveIssueMessageComponent } from './widgets/save-issue-message/save-issue-message.component';
 import { DailyPieChartComponent } from './widgets/daily-pie-chart/daily-pie-chart.component';
 import { MonthlyHitTableComponent } from './widgets/monthly-hit-table/monthly-hit-table.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,8 @@ import { MonthlyHitTableComponent } from './widgets/monthly-hit-table/monthly-hi
     MatSelectModule,
     NgxQRCodeModule,
     ChartsModule,
+    MatSnackBarModule,
+    ClipboardModule
   ],
   exports: [
     HeaderComponent,

@@ -27,6 +27,7 @@ import { PricingComponent } from './pricing/pricing.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomUrlValidationDirective } from './admin/service/customUrlValidation/custom-url-validation.directive';
+import { ClipboardModule } from 'ngx-clipboard';
 // import { FaqComponent } from './admin/modules/faq/faq.component';
 // import { ReportIssueComponent } from './admin/modules/report-issue/report-issue.component';
 // import { UserProfileComponent } from './admin/modules/user-profile/user-profile.component';
@@ -66,6 +67,7 @@ import { CustomUrlValidationDirective } from './admin/service/customUrlValidatio
     MatProgressSpinnerModule,
     HttpClientModule,
     MatSnackBarModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

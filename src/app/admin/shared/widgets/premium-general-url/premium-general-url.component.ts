@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
 import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.service';
+import { ClipboardService } from 'ngx-clipboard';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-premium-general-url',
@@ -31,6 +33,8 @@ export class PremiumGeneralUrlComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private adminAuthService: AdminAuthService,
     private premiumUrlService: PremiumUrlService,
+    private clipboardApi: ClipboardService, 
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -78,6 +82,11 @@ export class PremiumGeneralUrlComponent implements OnInit {
         }
       }
     );
+  }
+
+  copiedMessage() {
+    this.clipboardApi.copyFromContent(this.premiumShortenUrl)
+    this._snackBar.open("Copied!", 'Dismiss', {duration: 3000});
   }
 
   ngOnDestroy(): void {
