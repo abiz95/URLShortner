@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
-import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.service';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { AnalyticsService } from 'src/app/admin/service/analyticsService/analytics.service';
+// import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+// import { Label } from 'ng2-charts';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 // import {
 //   ChartComponent,
@@ -60,8 +60,8 @@ export class OverallHitsLineChartComponent {
   public barChartData;
 
   constructor(
-    private premiumUrlService: PremiumUrlService,
-    private adminAuthService: AdminAuthService,
+    private analyticsService: AnalyticsService,
+    private adminAuthService: AuthSharedService,
   ) {
     
   //   this.chartOptions = {
@@ -127,7 +127,7 @@ export class OverallHitsLineChartComponent {
 
   ngOnInit(): void {
 
-    this.hitAnalyticsData = this.premiumUrlService.getHitAnalytics(this.adminAuthService.getSessionUserId()).subscribe(
+    this.hitAnalyticsData = this.analyticsService.getHitAnalytics(this.adminAuthService.getSessionUserId()).subscribe(
     //   (res)=>{
     //     this.analyticsData = res;
 

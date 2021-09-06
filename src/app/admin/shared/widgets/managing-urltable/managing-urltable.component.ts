@@ -3,8 +3,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
 import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 import { DeleteMessageComponent } from '../delete-message/delete-message.component';
 import { EditUrlComponent } from '../edit-url/edit-url.component';
 
@@ -18,12 +18,12 @@ export class ManagingURLTableComponent implements OnInit {
 
   premiumUrlListData: any;
   deletePremiumUrlData: any;
-
+  noDataMsg: boolean = false;
   premiumUrlList: any;
 
   constructor(
     private premiumUrlService: PremiumUrlService, 
-    private adminAuthService: AdminAuthService,
+    private adminAuthService: AuthSharedService,
     private matDialog: MatDialog,
     ) { }
 
@@ -44,9 +44,15 @@ export class ManagingURLTableComponent implements OnInit {
       (res)=>{
         console.log("premiumUrlList: "+res);
         this.premiumUrlList = res;
-        this.listData = new MatTableDataSource(this.premiumUrlList);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
+        // console.log("premiumUrlList length:", this.premiumUrlList.length);
+        if (this.premiumUrlList !== null) {
+          this.listData = new MatTableDataSource(this.premiumUrlList);
+          this.listData.sort = this.sort;
+          this.listData.paginator = this.paginator;
+        } else {
+          this.noDataMsg = true;
+        }
+
         // this.listData.filterPredicate = (data, filter) => {
         //   return this.displayedColumns.some(ele => {
         //     return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
@@ -131,6 +137,19 @@ export class ManagingURLTableComponent implements OnInit {
         this.getPremiumUrlListData();
       }
     );
+  }
+
+  ngOnDestroy(): void {
+  
+    if (this.premiumUrlListData) {
+      // console.log("unsubscribe")
+        this.premiumUrlListData.unsubscribe();
+    }
+    if (this.deletePremiumUrlData) {
+      // console.log("unsubscribe")
+        this.deletePremiumUrlData.unsubscribe();
+    }
+
   }
 
 }

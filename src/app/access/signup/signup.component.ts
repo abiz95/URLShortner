@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 import { AuthService } from '../service/auth/auth.service';
 import { CustomValidationService } from '../service/customValidation/custom-validation.service';
+import { SharedAcessDataService } from '../shared/sharedAccessDataService/shared-acess-data.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,12 +16,13 @@ export class SignupComponent implements OnInit {
   signupForm;
   hide = true;
   c_hide = true;
+  errorMessage: string = null;
   
   constructor(
     private formBuilder: FormBuilder, 
     private router: Router, 
-    private customValidator: CustomValidationService,
     private authService: AuthService,
+    private SharedAcessDataService: SharedAcessDataService
     ) {
 
   }
@@ -27,17 +30,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm =this.formBuilder.group(
         {
-          firstName: ["", [Validators.required]],
-          lastName: ["", [Validators.required]],
           email: ["", [Validators.required, Validators.email]],
-          phoneNumber: ["", [Validators.required]],
-          country: ["", [Validators.required]],
-          // userName: ["", [Validators.required]],
-          password: ["", Validators.compose([Validators.required, this.customValidator.patternValidator()])],
-          confirmPassword: ["", [Validators.required]],
-        },
-        {
-          validator: this.customValidator.MatchPassword('password', 'confirmPassword'),
         }
       );
   }
@@ -47,37 +40,32 @@ export class SignupComponent implements OnInit {
   }
 
   firstName() {
-    return this.signupForm.get('firstName');
+    return this.signupForm.get('email');
   }
 
   saveForm() {
     console.log("form data", this.signupForm.value);
     // console.log("errors: ", this.signupForm.valid);
-    // this.router.navigate(['login'])
-    if (
-      // this.signupForm.get('firstName').status==="VALID" &&
-      // this.signupForm.get('lastName').status==="VALID" &&
-      // this.signupForm.get('email').status==="VALID" &&
-      // this.signupForm.get('phoneNumber').status==="VALID" &&
-      // this.signupForm.get('country').status==="VALID" &&
-      // this.signupForm.get('password').status==="VALID" &&
-      // this.signupForm.get('confirmPassword').status==="VALID" &&
-      // this.signupForm.get('password').value === this.signupForm.get('confirmPassword').value
+    if (this.signupForm.valid) {
+      console.log("password matched: ", this.signupForm.get('email').value);
+      this.authService.userEmailVerification(this.signupForm.value).subscribe(
+        res => {  
+          console.log("Signup resp", res);
+          if (res=='failed') {
+            this.errorMessage="Email Id already exist"
+          } else {
+            this.errorMessage=null;
+            this.SharedAcessDataService.userEmailId = this.signupForm.get('email').value;
+            this.router.navigate(['access/info'])
+          }
 
-      this.signupForm.valid
-      ) {
-      console.log("password matched: ", this.signupForm.value);
-      this.authService.saveUserData(this.signupForm.value).subscribe(
-        res => {
-          console.log(res);
-          this.router.navigate(['admin'])
+        },
+        (err) => {
+          console.log("signup error", err);
+          this.errorMessage="Something went wrong. Please try again"
         }
       )
     }
-  }
-
-  login() {
-    this.router.navigate(['login'])
   }
 
 }

@@ -19,6 +19,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { HeaderComponent } from './shared/header/header.component';
+import { SignupInfoComponent } from './signup/signup-info/signup-info.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { HeaderComponent } from './shared/header/header.component';
     SignoutComponent,
     SignupComponent,
     HeaderComponent,
+    SignupInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { HeaderComponent } from './shared/header/header.component';
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatCardModule,
   ]
 })
 export class AccessModule { }

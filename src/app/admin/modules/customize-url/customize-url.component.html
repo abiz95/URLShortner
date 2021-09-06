@@ -1,11 +1,11 @@
-<div fxLayout="row" fxLayoutWrap fxLayoutAligh="space-between center" fxLayoutGap="20px" class="stat-cards">
-    <mat-card fxFlex="50">
+<div fxLayout="row" fxLayoutWrap fxLayoutAligh="space-between center" fxLayoutGap="20px" class="stat-cards" style="display: flex; flex-wrap: wrap !important;">
+    <mat-card class="short">
         <h4>Short URLs</h4>
         <div>
             <app-premium-general-url (QREvent)="QADetails($event)"></app-premium-general-url>
         </div>
     </mat-card>
-    <mat-card fxFlex="50">
+    <mat-card class="customShort">
         <h4>Custom Short URLs</h4>
         <div>
             <app-premium-custom-url (QREvent)="QADetails($event)"></app-premium-custom-url>
@@ -21,3 +21,27 @@
     <br>
     <br>
 </div>
+
+<!-- <div class="stat-cards" style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: wrap;">
+    <mat-card style="width: 50%;">
+        <h4>Short URLs</h4>
+        <div>
+            <app-premium-general-url (QREvent)="QADetails($event)"></app-premium-general-url>
+        </div>
+    </mat-card>
+    <mat-card style="width: 50%; margin-left: 20px;">
+        <h4>Custom Short URLs</h4>
+        <div>
+            <app-premium-custom-url (QREvent)="QADetails($event)"></app-premium-custom-url>
+        </div>
+    </mat-card>
+</div>
+
+<div *ngIf="QACodeInd">
+<br>
+<mat-card>
+    <app-qrcode-generator [QRUrl]="QRvalue"></app-qrcode-generator>
+</mat-card>
+<br>
+<br>
+</div> -->

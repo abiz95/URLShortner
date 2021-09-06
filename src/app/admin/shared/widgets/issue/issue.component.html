@@ -1,22 +1,28 @@
 <div>
     <form [formGroup]="userInfoForm" (ngSubmit)="saveForm()">
-        <p style="color: red;" *ngIf="errorInd">{{errorMessage}}</p>
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Short Description</mat-label>
-                <input formControlName="issueTitle" matInput placeholder="Describe issue in short">
-                <mat-error *ngIf="formValues.issueTitle.errors?.required">Required short description of the issue</mat-error>
-                <!-- <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error> -->
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Issue details</mat-label>
-                <textarea id="description" formControlName="issueDescription" matInput placeholder="Detailed issue description"></textarea>
-                <mat-error *ngIf="formValues.issueDescription.errors?.required">Required detailed description of the issue</mat-error>
-                <!-- <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error> -->
-            </mat-form-field>
-        </p>
+        <mat-card>
+            <p style="color: red;" *ngIf="errorInd">{{errorMessage}}</p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Short Description</mat-label>
+                    <input formControlName="issueTitle" matInput placeholder="Describe issue in short">
+                    <mat-error *ngIf="formValues.issueTitle.errors?.required">Required short description of the issue
+                    </mat-error>
+                    <!-- <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error> -->
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Issue details</mat-label>
+                    <textarea id="description" formControlName="issueDescription" matInput
+                        placeholder="Detailed issue description"></textarea>
+                    <mat-error *ngIf="formValues.issueDescription.errors?.required">Required detailed description of the
+                        issue</mat-error>
+                    <!-- <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error> -->
+                </mat-form-field>
+            </p>
+        </mat-card>
+        <br>
         <div>
             <button type="submit" mat-button>Send</button>
             <button mat-button [routerLink]="['../']">Cancel</button>

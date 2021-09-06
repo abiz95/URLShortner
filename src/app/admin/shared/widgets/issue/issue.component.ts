@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
 import { ReportIssueService } from 'src/app/admin/service/reportIssue/report-issue.service';
 import { SaveIssueMessageComponent } from '../save-issue-message/save-issue-message.component';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 @Component({
   selector: 'app-issue',
@@ -19,7 +19,7 @@ export class IssueComponent implements OnInit {
   errorInd: any = false;
   errorMessage: any;
 
-  constructor(private formBuilder: FormBuilder, private adminAuthService: AdminAuthService, private reportIssueService: ReportIssueService, private matDialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder, private adminAuthService: AuthSharedService, private reportIssueService: ReportIssueService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
 import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 @Component({
   selector: 'app-premium-general-url',
@@ -31,7 +31,7 @@ export class PremiumGeneralUrlComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder, 
-    private adminAuthService: AdminAuthService,
+    private adminAuthService: AuthSharedService,
     private premiumUrlService: PremiumUrlService,
     private clipboardApi: ClipboardService, 
     private _snackBar: MatSnackBar
@@ -61,27 +61,31 @@ export class PremiumGeneralUrlComponent implements OnInit {
       userId: this.userId,
       actualUrl: this.premiumForm.get('premiumActualUrl').value,
     }
-    this.postPremiumUrl = this.premiumUrlService.savePremiumUrlDetails(this.premiumData).subscribe(
-      (res)=>{
-        console.log("save premium URL: "+res)
-        if (res==="failed") {
-          this.premiumrlSuccessMessage = false;
-          this.premiumUrlFailedMessage = true;
-          // this.QACodeInd = false;
-          this.QRData={ind: false, url: ''};
-          this.QREvent.emit(this.QRData);
+
+    if (this.premiumForm.valid) {
+      this.postPremiumUrl = this.premiumUrlService.savePremiumUrlDetails(this.premiumData).subscribe(
+        (res)=>{
+          console.log("save premium URL: "+res)
+          if (res==="failed") {
+            this.premiumrlSuccessMessage = false;
+            this.premiumUrlFailedMessage = true;
+            // this.QACodeInd = false;
+            this.QRData={ind: false, url: ''};
+            this.QREvent.emit(this.QRData);
+          }
+          else{
+            this.premiumUrlFailedMessage = false;
+            this.premiumrlSuccessMessage = true;
+            this.premiumShortenUrl = "http://localhost:4200/"+res;
+            // this.QRvalue = this.premiumShortenUrl;
+            // this.QACodeInd = true;
+            this.QRData={ind: true, url: this.premiumShortenUrl};
+            this.QREvent.emit(this.QRData);
+          }
         }
-        else{
-          this.premiumUrlFailedMessage = false;
-          this.premiumrlSuccessMessage = true;
-          this.premiumShortenUrl = "http://localhost:4200/"+res;
-          // this.QRvalue = this.premiumShortenUrl;
-          // this.QACodeInd = true;
-          this.QRData={ind: true, url: this.premiumShortenUrl};
-          this.QREvent.emit(this.QRData);
-        }
-      }
-    );
+      );
+    }
+
   }
 
   copiedMessage() {

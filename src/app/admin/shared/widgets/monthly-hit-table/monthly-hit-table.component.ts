@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from 'src/app/admin/service/analyticsService/analytics.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 @Component({
   selector: 'app-monthly-hit-table',
@@ -6,28 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monthly-hit-table.component.scss']
 })
 export class MonthlyHitTableComponent implements OnInit {
+  topMonthlyHitData: any;
+  noDataMsg: boolean = false
+  displayedColumns: string[] = ['shortenUrl', 'hitDate', 'hits'];
+  dataSource: any;
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-
-  constructor() { }
+  constructor(private analyticsService: AnalyticsService, private adminAuthService: AuthSharedService) { }
 
   ngOnInit(): void {
+    this.topMonthlyHitData = this.analyticsService.getTopMonthlyAnalytics(this.adminAuthService.getSessionUserId()).subscribe(
+      (res)=>{
+        console.log("topMonthlyHitData: ", res);
+        this.dataSource = res;
+        if (this.dataSource === null) {
+          console.log("No data found: ", res);
+          this.noDataMsg = true
+        }
+      }
+    );
   }
 
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}
-];

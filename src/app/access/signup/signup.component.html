@@ -9,51 +9,10 @@
         </div>
         <div fxflex="60%">
             <form [formGroup]="signupForm" (ngSubmit)="saveForm()">
-                <div id="name">
-                    <p>
-                        <mat-form-field appearance="outline">
-                            <mat-label>First Name</mat-label>
-                            <input formControlName="firstName" matInput placeholder="Enter your first name">
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <mat-error *ngIf="formValues.firstName.errors?.required">Required first name</mat-error>
-                        </mat-form-field>
-                       
-                    </p>
-                    <p>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Last Name</mat-label>
-                            <input formControlName="lastName" matInput placeholder="Enter your last name">
-                            <mat-error *ngIf="formValues.lastName.errors?.required">Required last name</mat-error>
-                        </mat-form-field>
-                    </p>
+                <div *ngIf="errorMessage">
+                    <h2 style="color: red;">{{errorMessage}}</h2>
                 </div>
-                <div id="pc">
-                    <p>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Phone Number</mat-label>
-                            <input formControlName="phoneNumber" matInput placeholder="Enter your phone number">
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <!-- <mat-hint>Hint</mat-hint> -->
-                            <mat-error *ngIf="formValues.phoneNumber.errors?.required">Required a valid phone number</mat-error>
-                        </mat-form-field>
-                    </p>
-                    <p>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Country</mat-label>
-                            <!-- <input formControlName="country" matInput placeholder="Enter you phone number"> -->
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <!-- <mat-hint>Hint</mat-hint> -->
-                            <mat-select  formControlName="country">
-                                <mat-option value="">Select</mat-option>
-                                <mat-option value="US">Afghanistan</mat-option>
-                                <mat-option value="US">US</mat-option>
-                                <mat-option value="UK">UK</mat-option>
-                                <mat-option value="India">India</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formValues.country.errors?.required">Must select a country</mat-error>
-                        </mat-form-field>
-                    </p>
-                </div>
+                <h2>Sign Up</h2>
                 <p>
                     <mat-form-field id="bigField" appearance="outline">
                         <mat-label>email</mat-label>
@@ -63,39 +22,6 @@
                         <mat-error *ngIf="formValues.email.errors?.required">Required a valid email Id</mat-error>
                         <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error>
                     </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field id="bigField" appearance="outline">
-                        <mat-label>Password</mat-label>
-                        <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <mat-hint>Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number</mat-hint>
-                        <mat-error *ngIf="formValues.password.errors?.required">Password field cannot be empty</mat-error>
-                        <mat-error *ngIf="formValues.password.errors?.invalidPassword">Password doesn't matched the criteria, please follow the instructions</mat-error>
-                    </mat-form-field>
-                </p>
-                <br>
-                <p>
-                    <!-- <mat-form-field id="bigField" appearance="outline">
-                        <mat-label>Confirm Password</mat-label>
-                        <input formControlName="confirmPassword" matInput placeholder="Confirm your password"  [type]="c_hide ? 'confirmPassword' : 'text'">
-                        <button type="button" mat-icon-button matSuffix (click)="c_hide = !c_hide" [attr.aria-label]="'c_hide confirmPassword'" [attr.aria-pressed]="c_hide">
-                            <mat-icon>{{c_hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <mat-error *ngIf="formValues.password.errors?.required">Confirm password cannot be empty</mat-error>
-                        <mat-error *ngIf="formValues.confirmPassword.errors?.passwordMismatch">Password doesn't match</mat-error>
-                    </mat-form-field> -->
-                    <mat-form-field id="bigField" appearance="outline">
-                        <mat-label>Confirm Password</mat-label>
-                        <input formControlName="confirmPassword" matInput placeholder="Confirm your password" [type]="c_hide ? 'password' : 'text'">
-                        <button type="button" mat-icon-button matSuffix (click)="c_hide = !c_hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                          <mat-icon>{{c_hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <mat-error *ngIf="formValues.password.errors?.required">Confirm password cannot be empty</mat-error>
-                        <mat-error *ngIf="formValues.confirmPassword.errors?.passwordMismatch">Password doesn't match</mat-error>
-                      </mat-form-field>
                 </p>
                 <button id="create_button" type="submit" mat-raised-button>Create your account</button>
                 <br>

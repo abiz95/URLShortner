@@ -25,9 +25,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { LoadComponent } from './load/load.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomUrlValidationDirective } from './admin/service/customUrlValidation/custom-url-validation.directive';
 import { ClipboardModule } from 'ngx-clipboard';
+import { JwtInterceptorService } from './services/jwtInterceptor/jwt-interceptor.service';
+import { ErrorInterceptorService } from './services/errorInterceptor/error-interceptor.service';
 // import { FaqComponent } from './admin/modules/faq/faq.component';
 // import { ReportIssueComponent } from './admin/modules/report-issue/report-issue.component';
 // import { UserProfileComponent } from './admin/modules/user-profile/user-profile.component';
@@ -69,7 +71,10 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatSnackBarModule,
     ClipboardModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

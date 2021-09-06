@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
 import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 @Component({
   selector: 'app-premium-custom-url',
@@ -33,7 +33,7 @@ export class PremiumCustomUrlComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
-    private adminAuthService: AdminAuthService,
+    private adminAuthService: AuthSharedService,
     private premiumUrlService: PremiumUrlService, 
     private clipboardApi: ClipboardService, 
     private _snackBar: MatSnackBar
@@ -83,46 +83,49 @@ export class PremiumCustomUrlComponent implements OnInit {
     actualUrl: this.premiumCustomForm.get('premiumCustomActualUrl').value,
     shortenUrl: this.premiumCustomForm.get('premiumCustomUrl').value
   }
-  this.postCustomUrl = this.premiumUrlService.saveCustomPremiumUrlDetails(this.customData).subscribe(
-    (res)=>{
-      console.log("save custom premium URL: "+res)
-      if (res==="failed") {
-        this.customUrlSuccessMessage = false;
-        this.customUrlFailedMessage = true;
-        // this.QACodeInd = false;
-        this.QRData={ind: false, url: ''};
-        this.QREvent.emit(this.QRData);
+  if (this.premiumCustomForm.valid) {
+    this.postCustomUrl = this.premiumUrlService.saveCustomPremiumUrlDetails(this.customData).subscribe(
+      (res)=>{
+        console.log("save custom premium URL: "+res)
+        if (res==="failed") {
+          this.customUrlSuccessMessage = false;
+          this.customUrlFailedMessage = true;
+          // this.QACodeInd = false;
+          this.QRData={ind: false, url: ''};
+          this.QREvent.emit(this.QRData);
+        }
+        else{
+          this.customUrlSuccessMessage = true;
+          this.customUrlFailedMessage = false;
+          this.customUrlOtherFailedMessage = false;
+          this.customShortenUrl="http://localhost:4200/"+res
+          // this.QRvalue=this.customShortenUrl;
+          // this.QACodeInd = true;
+          this.QRData={ind: true, url: this.customShortenUrl};
+          this.QREvent.emit(this.QRData);
+        }
+      },
+      (err)=>{
+        if (err.status === 501) {
+          this.customUrlSuccessMessage = false;
+          this.customUrlFailedMessage = true;
+          this.customUrlOtherFailedMessage = false;
+          // this.QACodeInd = false;
+          this.QRData={ind: false, url: ''};
+          this.QREvent.emit(this.QRData);
+        }
+        else{
+          this.customUrlSuccessMessage = false;
+          this.customUrlFailedMessage = false;
+          this.customUrlOtherFailedMessage = true;
+          // this.QACodeInd = false;
+          this.QRData={ind: false, url: ''};
+          this.QREvent.emit(this.QRData);
+        }
       }
-      else{
-        this.customUrlSuccessMessage = true;
-        this.customUrlFailedMessage = false;
-        this.customUrlOtherFailedMessage = false;
-        this.customShortenUrl="http://localhost:4200/"+res
-        // this.QRvalue=this.customShortenUrl;
-        // this.QACodeInd = true;
-        this.QRData={ind: true, url: this.customShortenUrl};
-        this.QREvent.emit(this.QRData);
-      }
-    },
-    (err)=>{
-      if (err.status === 501) {
-        this.customUrlSuccessMessage = false;
-        this.customUrlFailedMessage = true;
-        this.customUrlOtherFailedMessage = false;
-        // this.QACodeInd = false;
-        this.QRData={ind: false, url: ''};
-        this.QREvent.emit(this.QRData);
-      }
-      else{
-        this.customUrlSuccessMessage = false;
-        this.customUrlFailedMessage = false;
-        this.customUrlOtherFailedMessage = true;
-        // this.QACodeInd = false;
-        this.QRData={ind: false, url: ''};
-        this.QREvent.emit(this.QRData);
-      }
-    }
-  );
+    );
+  }
+
   console.log("custom data: ", this.customData);
   }
 

@@ -3,8 +3,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
 import { ReportIssueService } from 'src/app/admin/service/reportIssue/report-issue.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 import { ViewIssueComponent } from '../view-issue/view-issue.component';
 
 @Component({
@@ -16,12 +16,12 @@ export class IssueHistoryComponent implements OnInit {
 
   issueListData: any;
   deleteIssueData: any;
-
+  noDataMsg: boolean = false;
   issueList: any;
 
   constructor(
     private reportIssueService: ReportIssueService, 
-    private adminAuthService: AdminAuthService,
+    private adminAuthService: AuthSharedService,
     private matDialog: MatDialog,
     ) { }
 
@@ -42,9 +42,13 @@ export class IssueHistoryComponent implements OnInit {
       (res)=>{
         console.log("getIssueListData: "+res);
         this.issueList = res;
-        this.listData = new MatTableDataSource(this.issueList);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
+        if (this.issueList !== null) {
+          this.listData = new MatTableDataSource(this.issueList);
+          this.listData.sort = this.sort;
+          this.listData.paginator = this.paginator;
+        } else {
+          this.noDataMsg = true;
+        }
       }
     );
   }

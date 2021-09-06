@@ -1,0 +1,42 @@
+.stat-cards {
+    flex-direction: row;
+
+    .short {
+        width: 50%;
+    }
+
+    .customShort {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .stat-cards {
+        flex-direction: column !important;
+    }
+
+    .short {
+        width: 100% !important;
+    }
+
+    .customShort {
+        margin-top: 20px;
+        width: 100% !important;
+    }
+    
+}
+
+@media only screen and (max-width: 672px) {
+    .stat-cards {
+        flex-direction: column !important;
+    }
+    
+    .short {
+        width: 100% !important;
+    }
+
+    .customShort {
+        margin-top: 20px;
+        width: 100% !important;
+    }
+}

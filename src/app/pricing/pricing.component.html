@@ -1,43 +1,47 @@
 <app-header></app-header>
-<br>
+<!-- <br> -->
 <div class="main">
     <div class="content">
-        <h2 style="text-align:center">Responsive Pricing Tables</h2>
-        <p style="text-align:center">Resize the browser window to see the effect.</p>
         
+      <br>
+      <br>
+      <br>
+        <div class="columns">
+          <ul class="price">
+            <li class="header">Beta</li>
+            <li class="grey">Free</li>
+            <li>Create and share custom links</li>
+            <li>Up to 1000 branded links / month</li>
+            <li>Bulk link shortening</li>
+            <li>QR Codes for the shorten link</li>
+            <li class="grey"><button class="button" mat-raised-button (click)="updatePlan('Beta')">Proceed</button></li>
+            <!-- <li class="grey"><a (click)="updatePlan('Beta')" class="button">Proceed</a></li> -->
+          </ul>
+        </div>
+
         <div class="columns">
           <ul class="price">
             <li class="header">Basic</li>
-            <li class="grey">$ 9.99 / year</li>
-            <li>10GB Storage</li>
-            <li>10 Emails</li>
-            <li>10 Domains</li>
-            <li>1GB Bandwidth</li>
-            <li class="grey"><a href="#" class="button">Sign Up</a></li>
+            <li class="grey">$ 20.99 / Month</li>
+            <li>Create and share custom links</li>
+            <li>Up to 1000 branded links / month</li>
+            <li>Bulk link shortening</li>
+            <li>QR Codes for the shorten link</li>
+            <li class="grey"><button class="button" mat-raised-button disabled>Proceed</button></li>
+            <!-- <li class="grey"><a type="submit" class="button" disabled>Proceed</a></li> -->
           </ul>
         </div>
         
         <div class="columns">
           <ul class="price">
             <li class="header" style="background-color:#4CAF50">Pro</li>
-            <li class="grey">$ 24.99 / year</li>
-            <li>25GB Storage</li>
-            <li>25 Emails</li>
-            <li>25 Domains</li>
-            <li>2GB Bandwidth</li>
-            <li class="grey"><a href="#" class="button">Sign Up</a></li>
-          </ul>
-        </div>
-        
-        <div class="columns">
-          <ul class="price">
-            <li class="header">Premium</li>
-            <li class="grey">$ 49.99 / year</li>
-            <li>50GB Storage</li>
-            <li>50 Emails</li>
-            <li>50 Domains</li>
-            <li>5GB Bandwidth</li>
-            <li class="grey"><a href="#" class="button">Sign Up</a></li>
+            <li class="grey">$ 100.99 / Month</li>
+            <li>Create and share custom links</li>
+            <li>Up to 5000 branded links / month</li>
+            <li>Bulk link shortening</li>
+            <li>QR Codes for the shorten link</li>
+            <li class="grey"><button class="button" mat-raised-button disabled>Proceed</button></li>
+            <!-- <li class="grey"><a type="submit" class="button" disabled>Proceed</a></li> -->
           </ul>
         </div>
     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminAuthService } from 'src/app/admin/service/adminAuth/admin-auth.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() toggleSideBarForMe : EventEmitter<any> = new EventEmitter();
   
-  constructor(private adminAuth: AdminAuthService, private router: Router) { }
+  constructor(private adminAuth: AuthSharedService, private router: Router) { }
 
   ngOnInit() {
   }

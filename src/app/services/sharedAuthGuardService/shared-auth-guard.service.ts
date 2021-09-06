@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService {
+export class SharedAuthGuardService {
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthSharedService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.auth.isUserLoggedIn()) {
@@ -16,5 +16,4 @@ export class AuthGuardService {
     this.router.navigate(['access/signin'])
     return false;
   }
-
 }

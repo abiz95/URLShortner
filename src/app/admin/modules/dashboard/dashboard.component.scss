@@ -1,4 +1,50 @@
 .second{
     display: flex;
     flex-direction: row;
+
+    .monthlyHit {
+        width: 100%;
+        margin-right: 10px;
+    }
+
+    .dailyHit {
+        width: 100%;
+        margin-right: 10px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .second {
+        flex-direction: column;
+    }
+    
+    .monthlyHit {
+        width: 95% !important;
+        margin-right: 0px;
+        margin-top: 10px;
+    }
+
+    .dailyHit {
+        width: 95% !important;
+        margin-right: 0px;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 672px) {
+    .second {
+        flex-direction: column;
+    }
+    
+    .monthlyHit {
+        width: 92% !important;
+        margin-right: 0px;
+        // margin-top: 10px;
+    }
+
+    .dailyHit {
+        width: 92% !important;
+        margin-right: 0px;
+        margin-top: 20px;
+    }
 }
