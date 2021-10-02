@@ -30,6 +30,7 @@ import { CustomUrlValidationDirective } from './admin/service/customUrlValidatio
 import { ClipboardModule } from 'ngx-clipboard';
 import { JwtInterceptorService } from './services/jwtInterceptor/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/errorInterceptor/error-interceptor.service';
+import { LocalDataService } from './services/localDataService/local-data.service';
 // import { FaqComponent } from './admin/modules/faq/faq.component';
 // import { ReportIssueComponent } from './admin/modules/report-issue/report-issue.component';
 // import { UserProfileComponent } from './admin/modules/user-profile/user-profile.component';
@@ -74,6 +75,7 @@ import { ErrorInterceptorService } from './services/errorInterceptor/error-inter
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    LocalDataService
   ],
   bootstrap: [AppComponent]
 })

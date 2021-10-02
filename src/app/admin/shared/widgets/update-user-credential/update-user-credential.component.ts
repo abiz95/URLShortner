@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomValidationService } from 'src/app/access/service/customValidation/custom-validation.service';
 import { UserInfoService } from 'src/app/admin/service/userInfo/user-info.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { LocalDataService } from 'src/app/services/localDataService/local-data.service';
 
 @Component({
   selector: 'app-update-user-credential',
@@ -18,12 +20,15 @@ export class UpdateUserCredentialComponent implements OnInit {
   hide = true;
   c_hide = true;
   o_hide = true;
+  userDetailsData: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder, 
     private userInfoService: UserInfoService,
     private customValidator: CustomValidationService,
+    private adminAuthService: AuthSharedService,
+    private localDataService: LocalDataService,
     private dialogRef: MatDialogRef<UpdateUserCredentialComponent>,
   ) { }
 
@@ -70,7 +75,8 @@ export class UpdateUserCredentialComponent implements OnInit {
             this.errorMessage = "Updation failed!"
           }
           else{
-            console.log("updated user credential details: "+res)
+            console.log("updated user credential details: "+res);
+            this.getProfileInfoDataService();
             this.dialogRef.close(this.userCredentialForm.value);
           }
         },
@@ -87,6 +93,24 @@ export class UpdateUserCredentialComponent implements OnInit {
         }
       );
 
+    }
+  }
+
+  getProfileInfoDataService() {
+    this.userDetailsData = this.userInfoService.getUserInfo(this.adminAuthService.getSessionUserId()).subscribe(
+      (res) => {
+        console.log("getProfileInfoDataService: " + JSON.stringify(res));
+        let userInfo: any = res;
+        this.localDataService.setProfileInfo(userInfo);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+
+    if (this.userDetailsData) {
+      // console.log("unsubscribe")
+      this.userDetailsData.unsubscribe();
     }
   }
 

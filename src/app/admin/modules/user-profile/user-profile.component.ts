@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthService } from 'src/app/access/service/auth/auth.service';
+import { LocalDataModel } from 'src/app/app.models';
 import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { LocalDataService } from 'src/app/services/localDataService/local-data.service';
 import { UserInfoService } from '../../service/userInfo/user-info.service';
 import { EditPersonalInfoComponent } from '../../shared/widgets/edit-personal-info/edit-personal-info.component';
 import { UpdateUserCredentialComponent } from '../../shared/widgets/update-user-credential/update-user-credential.component';
@@ -23,38 +25,70 @@ export class UserProfileComponent implements OnInit {
   profilePicFile: any;
   rawImg: any;
   spinnerInd: boolean = false;
+  private store = new LocalDataModel();
 
   constructor(
     private userInfoService: UserInfoService, 
     private adminAuthService: AuthSharedService, 
     private matDialog: MatDialog, 
     private authService: AuthService, 
-    private authSharedService: AuthSharedService
+    private authSharedService: AuthSharedService,
+    private localDataService: LocalDataService,
     ) { }
 
   ngOnInit(): void {
-
+    this.localDataService.getLocalData().subscribe(
+      (update) => {
+        this.store = update;
+        // console.log('UserProfileComponent: ', update);
+      }
+    );
     this.userId = this.adminAuthService.getSessionUserId();
     this.getUserData();
     this.profileImgDetailService = this.userInfoService.getProfilePicture(this.userId).subscribe(
       image => this.createImage(image),
       err => this.handleImageRetrievalError(err)
     );
-
+    // this.profileImgDetailService = this.store.profilePicture.subscribe(
+    //   image => this.createImage(image),
+    //   err => this.handleImageRetrievalError(err)
+    // );
   }
 
   getUserData() {
-
-    this.getUserDetails = this.userInfoService.getUserInfo(this.userId).subscribe(
-      (res) => {
-        console.log("user details: " + res);
-        this.userInfo = res;
+    this.store.profileInfo.subscribe((data) => {console.log('abcdef: ', data)})
+    this.getUserDetails = this.store.profileInfo.subscribe((data) => {
+      if (data.length<1) {
+        this.getUserDetails = this.userInfoService.getUserInfo(this.userId).subscribe(
+          (res) => {
+            console.log("user store details: " + res);
+            this.userInfo = res;
+            this.password = this.userInfo.password.replace(/./g, '*');
+          },
+          (err) => {
+            console.log("Error: " + err);
+          }
+        );
+      } else {
+        console.log("user details: " + data);
+        this.userInfo = data;
         this.password = this.userInfo.password.replace(/./g, '*');
-      },
+      }
+    },
       (err) => {
         console.log("Error: " + err);
       }
     );
+    // this.getUserDetails = this.userInfoService.getUserInfo(this.userId).subscribe(
+    //   (res) => {
+    //     console.log("user details: " + res);
+    //     this.userInfo = res;
+    //     this.password = this.userInfo.password.replace(/./g, '*');
+    //   },
+    //   (err) => {
+    //     console.log("Error: " + err);
+    //   }
+    // );
   }
 
   updateUserDetails() {

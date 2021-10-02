@@ -4,7 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.service';
+import { LocalDataModel } from 'src/app/app.models';
 import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { LocalDataService } from 'src/app/services/localDataService/local-data.service';
 import { DeleteMessageComponent } from '../delete-message/delete-message.component';
 import { EditUrlComponent } from '../edit-url/edit-url.component';
 
@@ -20,10 +22,13 @@ export class ManagingURLTableComponent implements OnInit {
   deletePremiumUrlData: any;
   noDataMsg: boolean = false;
   premiumUrlList: any;
+  updatePremiumUrlListData: any;
+  private store = new LocalDataModel();
 
   constructor(
     private premiumUrlService: PremiumUrlService, 
     private adminAuthService: AuthSharedService,
+    private localDataService: LocalDataService,
     private matDialog: MatDialog,
     ) { }
 
@@ -34,17 +39,33 @@ export class ManagingURLTableComponent implements OnInit {
   searchKey: string;
   
   ngOnInit() {
-
+    this.localDataService.getLocalData().subscribe(
+      (update) => {
+        this.store = update;
+        // console.log('localDataService: ', update);
+      }
+    );
     this.getPremiumUrlListData();
   }
 
 
   getPremiumUrlListData() {
-    this.premiumUrlListData = this.premiumUrlService.getPremiumUrlList(this.adminAuthService.getSessionUserId()).subscribe(
-      (res)=>{
-        console.log("premiumUrlList: "+res);
-        this.premiumUrlList = res;
-        // console.log("premiumUrlList length:", this.premiumUrlList.length);
+    // this.premiumUrlListData = this.premiumUrlService.getPremiumUrlList(this.adminAuthService.getSessionUserId()).subscribe(
+    //   (res)=>{
+    //     console.log("premiumUrlList: "+res);
+    //     this.premiumUrlList = res;
+    //     if (this.premiumUrlList !== null) {
+    //       this.listData = new MatTableDataSource(this.premiumUrlList);
+    //       this.listData.sort = this.sort;
+    //       this.listData.paginator = this.paginator;
+    //     } else {
+    //       this.noDataMsg = true;
+    //     }
+    //   }
+    // );
+
+    this.premiumUrlListData = this.store.manageURLData.subscribe((data) => {
+      this.premiumUrlList = data;
         if (this.premiumUrlList !== null) {
           this.listData = new MatTableDataSource(this.premiumUrlList);
           this.listData.sort = this.sort;
@@ -52,12 +73,18 @@ export class ManagingURLTableComponent implements OnInit {
         } else {
           this.noDataMsg = true;
         }
+      }
+    );
 
-        // this.listData.filterPredicate = (data, filter) => {
-        //   return this.displayedColumns.some(ele => {
-        //     return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
-        //   });
-        // }
+  }
+
+  updateManageUrlDataService() {
+    this.updatePremiumUrlListData = this.premiumUrlService.getPremiumUrlList(this.adminAuthService.getSessionUserId()).subscribe(
+      (res)=>{
+        console.log("premiumUrlList: "+res);
+        let premiumUrlList: any = res;
+        this.localDataService.setManageURLData(premiumUrlList);
+        this.getPremiumUrlListData();
       }
     );
   }
@@ -86,7 +113,7 @@ export class ManagingURLTableComponent implements OnInit {
     urlRef.afterClosed().subscribe(
       (data) => {
         console.log("Dialog output:", data)
-        this.getPremiumUrlListData();
+        this.updateManageUrlDataService();
       }
     );
   }
@@ -111,7 +138,7 @@ export class ManagingURLTableComponent implements OnInit {
           this.deletePremiumUrlData = this.premiumUrlService.deletePremiumUrlDetails(this.adminAuthService.getSessionUserId(), shortenUrl).subscribe(
             (res)=>{
               console.log("deleteUrlStatus: "+res);
-              this.getPremiumUrlListData();
+              this.updateManageUrlDataService();
             }
           );
         }
@@ -134,7 +161,7 @@ export class ManagingURLTableComponent implements OnInit {
     this.deletePremiumUrlData = this.premiumUrlService.updateCustomPremiumUrlStatus(data).subscribe(
       (res)=>{
         console.log("updateUrlStatus: "+res);
-        this.getPremiumUrlListData();
+        this.updateManageUrlDataService();
       }
     );
   }
@@ -144,6 +171,10 @@ export class ManagingURLTableComponent implements OnInit {
     if (this.premiumUrlListData) {
       // console.log("unsubscribe")
         this.premiumUrlListData.unsubscribe();
+    }
+    if (this.updatePremiumUrlListData) {
+      // console.log("unsubscribe")
+        this.updatePremiumUrlListData.unsubscribe();
     }
     if (this.deletePremiumUrlData) {
       // console.log("unsubscribe")

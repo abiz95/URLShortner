@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserInfoService } from 'src/app/admin/service/userInfo/user-info.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { LocalDataService } from 'src/app/services/localDataService/local-data.service';
 
 @Component({
   selector: 'app-edit-personal-info',
@@ -14,12 +16,15 @@ export class EditPersonalInfoComponent implements OnInit {
   userInfoForm: any;
   errorInd: any = false;
   errorMessage: any;
+  userDetailsData: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder, 
     private userInfoService: UserInfoService,
     private dialogRef: MatDialogRef<EditPersonalInfoComponent>,
+    private adminAuthService: AuthSharedService,
+    private localDataService: LocalDataService,
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +70,8 @@ export class EditPersonalInfoComponent implements OnInit {
             this.errorMessage = "Oops something went wrong!"
           }
           else{
-            console.log("updated user details: "+res)
+            console.log("updated user details: "+res);
+            this.getProfileInfoDataService();
             this.dialogRef.close(this.userInfoForm.value);
           }
         },
@@ -76,6 +82,24 @@ export class EditPersonalInfoComponent implements OnInit {
         }
       );
 
+    }
+  }
+
+  getProfileInfoDataService() {
+    this.userDetailsData = this.userInfoService.getUserInfo(this.adminAuthService.getSessionUserId()).subscribe(
+      (res) => {
+        console.log("getProfileInfoDataService: " + JSON.stringify(res));
+        let userInfo: any = res;
+        this.localDataService.setProfileInfo(userInfo);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+
+    if (this.userDetailsData) {
+      // console.log("unsubscribe")
+      this.userDetailsData.unsubscribe();
     }
   }
 

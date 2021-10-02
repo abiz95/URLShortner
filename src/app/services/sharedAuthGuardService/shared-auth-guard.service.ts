@@ -12,8 +12,9 @@ export class SharedAuthGuardService {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.auth.isUserLoggedIn()) {
       return true;
+    } else {
+      this.router.navigate(['access/signin'])
+      return false;
     }
-    this.router.navigate(['access/signin'])
-    return false;
   }
 }

@@ -9,22 +9,18 @@ import { environment } from 'src/environments/environment';
 })
 export class AnalyticsService {
 
-  constructor(private http: HttpClient,
-    private remoteDataService: RemoteDataService
-    ) { }
+  constructor(private remoteDataService: RemoteDataService) { }
 
     getHitAnalytics(UserId:any) {
       console.log("getHitAnalytics: "+UserId);
       const href = `${environment.apiUrl}${apiPath.analytics}` + '/monthly/' + UserId;
       return this.remoteDataService.getData(href);
-      // return this.http.get('http://localhost:8080/analytics/monthly/'+UserId);
     }
 
     getTopMonthlyAnalytics(UserId:any) {
       console.log("getTopMonthlyAnalytics: "+UserId);
       const href = `${environment.apiUrl}${apiPath.analytics}` + '/top/monthly/' + UserId;
       return this.remoteDataService.getData(href);
-      // return this.http.get('http://localhost:8080/analytics/monthly/'+UserId);
     }
 
     getTopDailyAnalytics(UserId:any) {
@@ -32,6 +28,6 @@ export class AnalyticsService {
       const href = `${environment.apiUrl}${apiPath.analytics}` + '/top/daily/' + UserId;
       console.log("getTopDailyAnalytics URL: "+href);
       return this.remoteDataService.getData(href);
-      // return this.http.get('http://localhost:8080/analytics/monthly/'+UserId);
     }
+    
 }

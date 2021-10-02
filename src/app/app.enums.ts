@@ -2,5 +2,7 @@ export enum apiPath {
     general = '/general',
     premium = '/premium',
     analytics = '/analytics',
-    user = '/user'
+    report = '/report',
+    user = '/user',
+    issue = '/issue'
 }

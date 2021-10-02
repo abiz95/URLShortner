@@ -2,6 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserInfoService } from 'src/app/admin/service/userInfo/user-info.service';
+import { userPlan } from 'src/app/app.constants';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { LocalDataService } from 'src/app/services/localDataService/local-data.service';
 
 @Component({
   selector: 'app-update-user-subscription',
@@ -14,11 +17,15 @@ export class UpdateUserSubscriptionComponent implements OnInit {
   userSubscriptionForm: any;
   errorInd: any = false;
   errorMessage: any;
+  planDetails: any = userPlan.plan;
+  userDetailsData: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder, 
     private userInfoService: UserInfoService,
+    private adminAuthService: AuthSharedService,
+    private localDataService: LocalDataService,
     private dialogRef: MatDialogRef<UpdateUserSubscriptionComponent>,
   ) { }
 
@@ -72,6 +79,24 @@ export class UpdateUserSubscriptionComponent implements OnInit {
         }
       );
 
+    }
+  }
+
+  getProfileInfoDataService() {
+    this.userDetailsData = this.userInfoService.getUserInfo(this.adminAuthService.getSessionUserId()).subscribe(
+      (res) => {
+        console.log("getProfileInfoDataService: " + JSON.stringify(res));
+        let userInfo: any = res;
+        this.localDataService.setProfileInfo(userInfo);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+
+    if (this.userDetailsData) {
+      // console.log("unsubscribe")
+      this.userDetailsData.unsubscribe();
     }
   }
 

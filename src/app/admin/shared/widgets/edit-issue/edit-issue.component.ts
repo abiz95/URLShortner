@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReportIssueService } from 'src/app/admin/service/reportIssue/report-issue.service';
+import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { LocalDataService } from 'src/app/services/localDataService/local-data.service';
 
 @Component({
   selector: 'app-edit-issue',
@@ -14,11 +16,15 @@ export class EditIssueComponent implements OnInit {
   userInfoForm: any;
   errorInd: any = false;
   errorMessage: any;
+  issueListData: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private formBuilder: FormBuilder, 
     private reportIssueService: ReportIssueService,
+    private adminAuthService: AuthSharedService,
+    private localDataService: LocalDataService,
+
     private dialogRef: MatDialogRef<EditIssueComponent>,
   ) { }
 
@@ -64,6 +70,7 @@ export class EditIssueComponent implements OnInit {
           }
           else{
             console.log("updated user details: "+res)
+            this.updateIssueListDataService();
             this.dialogRef.close(this.userInfoForm.value);
           }
         },
@@ -75,6 +82,30 @@ export class EditIssueComponent implements OnInit {
       );
 
     }
+  }
+
+  updateIssueListDataService() {
+    this.issueListData = this.reportIssueService.getIssueList(this.adminAuthService.getSessionUserId()).subscribe(
+      (res)=>{
+        // console.log("updateIssueListDataService: "+res);
+        let issueList: any = res;
+        this.localDataService.setIssueListData(issueList);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+  
+    if (this.updateUserDetails) {
+      console.log("unsubscribe")
+        this.updateUserDetails.unsubscribe();
+    }
+
+    if (this.issueListData) {
+      console.log("unsubscribe")
+        this.issueListData.unsubscribe();
+    }
+
   }
 
 }

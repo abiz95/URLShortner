@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
+import { commons } from '../app.constants';
 import { LoadUrlService } from '../services/loadUrl/load-url.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class LoadComponent implements OnInit, OnDestroy {
   shortenLink
   linkService
   // actualLink
+  appName: string = commons.appName
   constructor(
     private route: ActivatedRoute,
     private router: Router,

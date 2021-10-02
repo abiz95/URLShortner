@@ -8,10 +8,11 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Subscriptions</mat-label>
                     <mat-select  formControlName="plan">
-                        <mat-option value="">Select</mat-option>
-                        <mat-option value="Silver">Silver</mat-option>
+                        <mat-option *ngFor="let plans of planDetails" value="plans">{{ plans }}</mat-option>
+                        <!-- <mat-option value="Silver">Silver</mat-option>
                         <mat-option value="Gold">Gold</mat-option>
-                        <mat-option value="Platinum">Platinum</mat-option>
+                        <mat-option value="Platinum">Platinum</mat-option> -->
+                        <!-- <mat-option value="Beta">Beta</mat-option> -->
                     </mat-select>
                     <mat-error *ngIf="formValues.plan.errors?.required">Must select a plan</mat-error>
                 </mat-form-field>
