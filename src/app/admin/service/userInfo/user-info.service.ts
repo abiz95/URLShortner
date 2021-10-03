@@ -21,21 +21,21 @@ export class UserInfoService {
 
   getProfilePictureInfo(UserId:any) {
     console.log("user: "+UserId);
-    const href = `${environment.apiUrl}${apiPath.user}`+'/user/profile/' + UserId;
+    const href = `${environment.apiUrl}${apiPath.user}`+'/profile/' + UserId;
     return this.remoteDataService.getData(href);
     // return this.http.get('http://localhost:8080/user/profile/'+UserId);
   }
 
   updateUserInfo(obj:any) {
     console.log("saveUserInfo: "+JSON.stringify(obj));
-    const href = `${environment.apiUrl}${apiPath.user}`+'/user/info';
+    const href = `${environment.apiUrl}${apiPath.user}`+'/info';
     return this.remoteDataService.putData(obj, href);
     // return this.http.put('http://localhost:8080/user/info', obj, {responseType: 'text'});
   }
 
   updateUserCredential(obj:any) {
     console.log("saveUserInfo: "+JSON.stringify(obj));
-    const href = `${environment.apiUrl}${apiPath.user}`+'/user/credential';
+    const href = `${environment.apiUrl}${apiPath.user}`+'/credential';
     return this.remoteDataService.putData(obj, href);
     // return this.http.put('http://localhost:8080/user/credential', obj, {responseType: 'text'});
   }
