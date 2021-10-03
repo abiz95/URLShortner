@@ -1,5 +1,5 @@
 export class commons {
-    public static appName: string = 'TaylorLinks';
+    public static appName: string = 'ZapLink';
 }
 
 export class userPlan {

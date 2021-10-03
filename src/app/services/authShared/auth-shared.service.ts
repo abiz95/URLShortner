@@ -14,7 +14,7 @@ export class AuthSharedService {
     // let user = sessionStorage.getItem('userId');
     // console.log("logged user: ", user)
     // return user;
-    let token = sessionStorage.getItem('token');
+    let token = localStorage.getItem('token');
     let decodedJwtData = JSON.parse(window.atob(token.split('.')[1]));
     console.log('decodedJwtJsonData: ' + decodedJwtData)
     console.log("user Id: ", decodedJwtData.userId);
@@ -22,7 +22,7 @@ export class AuthSharedService {
   }
 
   getLoggedInToken() {
-    let token = sessionStorage.getItem('token');
+    let token = localStorage.getItem('token');
     console.log("logged user: ", token)
     return token
   }
@@ -32,13 +32,13 @@ export class AuthSharedService {
   }
 
   logout() {
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     // sessionStorage.removeItem('userId');
     this.router.navigate(['access/signout'])
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('token');
+    let user = localStorage.getItem('token');
     console.log("logged user: ", user)
     return !(user === null)
   }
@@ -53,10 +53,10 @@ export class AuthSharedService {
 
   tokenSetup(res: any) {
 
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     // sessionStorage.removeItem('userId');
     console.log("token value: ", res);
-    sessionStorage.setItem('token', res);
+    localStorage.setItem('token', res);
     let jwtData = res.split('.')[1];
     let decodedJwtJsonData = window.atob(jwtData);
     let decodedJwtData = JSON.parse(decodedJwtJsonData);
