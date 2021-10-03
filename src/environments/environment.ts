@@ -2,10 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// export const environment = {
+//   production: false,
+//   hostUrl: 'http://localhost:4200',
+//   apiUrl: 'http://localhost:8080'
+// };
+
 export const environment = {
   production: false,
-  hostUrl: 'http://localhost:4200',
-  apiUrl: 'http://localhost:8080'
+  hostUrl: 'https://zap-url-shortner.herokuapp.com',
+  apiUrl: 'https://zap-url.herokuapp.com'
 };
 
 /*
