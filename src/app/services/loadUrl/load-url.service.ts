@@ -14,9 +14,9 @@ export class LoadUrlService {
   ) { }
 
   getActualUrl(shortenUrl) {
-    const href = `${environment.apiUrl}`+'/url/' + shortenUrl;
-    return this.remoteDataService.getData(href);
-    // return this.http.get("http://localhost:8080/url/"+shortenUrl, {responseType: 'text'});
+    // const href = `${environment.apiUrl}`+'/url/' + shortenUrl;
+    // return this.remoteDataService.getData(href);
+    return this.http.get(`${environment.apiUrl}` + "/url/" + shortenUrl, {responseType: 'text'});
 
   }
 
