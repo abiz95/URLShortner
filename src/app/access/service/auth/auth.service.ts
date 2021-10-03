@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { apiPath } from 'src/app/app.enums';
 import { RemoteDataService } from 'src/app/services/remoteDataService/remote-data.service';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +13,9 @@ export class AuthService {
   constructor(private http: HttpClient, private remoteDataService: RemoteDataService) { }
 
   saveUserData(obj:any) {
-    return this.http.post('http://localhost:8080/register', obj, {responseType: 'text' as 'json'})
+    const href = `${environment.apiUrl}` + '/register';
+    return this.remoteDataService.postData(obj, href);
+    // return this.http.post('http://localhost:8080/register', obj, {responseType: 'text' as 'json'})
   }
 
   userEmailVerification(obj:any) {
@@ -22,11 +25,15 @@ export class AuthService {
   }
 
   userValidation(obj:any) {
-    return this.http.post('http://localhost:8080/authenticate', obj, {responseType: 'text'})
+    const href = `${environment.apiUrl}` + '/authenticate';
+    return this.remoteDataService.postData(obj, href);
+    // return this.http.post('http://localhost:8080/authenticate', obj, {responseType: 'text'})
   }
 
   generateToken(obj:any) {
-    return this.http.post('http://localhost:8080/register', obj, {responseType: 'text'})
+    const href = `${environment.apiUrl}` + '/register';
+    return this.remoteDataService.postData(obj, href);
+    // return this.http.post('http://localhost:8080/register', obj, {responseType: 'text'})
   }
 
   uploadUserImg(obj:any, userId: any) {
@@ -41,7 +48,7 @@ export class AuthService {
     // formData.append('Content-Type', 'multipart/form-data');  
    
     // let HttpUploadOptions = { headers : new HttpHeaders({ 'Content-Type': 'multipart/form-data'})};
-    return this.http.post('http://localhost:8080/user/image/upload/'+userId, obj, { observe: 'response' })
+    return this.http.post(`${environment.apiUrl}${apiPath.user}` + '/image/upload/'+userId, obj, { observe: 'response' })
   }
 
 }

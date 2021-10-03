@@ -4,6 +4,7 @@ import { PremiumUrlService } from 'src/app/admin/service/premiumUrl/premium-url.
 import { ClipboardService } from 'ngx-clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthSharedService } from 'src/app/services/authShared/auth-shared.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-premium-general-url',
@@ -76,7 +77,8 @@ export class PremiumGeneralUrlComponent implements OnInit {
           else{
             this.premiumUrlFailedMessage = false;
             this.premiumrlSuccessMessage = true;
-            this.premiumShortenUrl = "http://localhost:4200/"+res;
+            // this.premiumShortenUrl = "http://localhost:4200/"+res;
+            this.premiumShortenUrl = `${environment.hostUrl}/`+res;
             // this.QRvalue = this.premiumShortenUrl;
             // this.QACodeInd = true;
             this.QRData={ind: true, url: this.premiumShortenUrl};
