@@ -8,7 +8,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Subscriptions</mat-label>
                     <mat-select  formControlName="plan">
-                        <mat-option *ngFor="let plans of planDetails" value="plans">{{ plans }}</mat-option>
+                        <mat-option *ngFor="let plans of planDetails" value="{{plans}}">{{ plans }}</mat-option>
                         <!-- <mat-option value="Silver">Silver</mat-option>
                         <mat-option value="Gold">Gold</mat-option>
                         <mat-option value="Platinum">Platinum</mat-option> -->
