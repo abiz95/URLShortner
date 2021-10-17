@@ -15,10 +15,14 @@ export class AuthSharedService {
     // console.log("logged user: ", user)
     // return user;
     let token = localStorage.getItem('token');
-    let decodedJwtData = JSON.parse(window.atob(token.split('.')[1]));
-    console.log('decodedJwtJsonData: ' + decodedJwtData)
-    console.log("user Id: ", decodedJwtData.userId);
-    return decodedJwtData.userId;
+    if (token !== '[object Object]') {
+      let decodedJwtData = JSON.parse(window.atob(token.split('.')[1]));
+      console.log('decodedJwtJsonData: ' + decodedJwtData)
+      console.log("user Id: ", decodedJwtData.userId);
+      return decodedJwtData.userId;
+    } else {
+      this.logout();
+    }
   }
 
   getLoggedInToken() {
@@ -71,6 +75,13 @@ export class AuthSharedService {
     const refreshToken = this.remoteDataService.getData(href);
     this.tokenSetup(refreshToken);
     // return this.http.post(`${apiPath.general}`+'/saveUrl', obj, {responseType: 'text'})
+  }
+
+  tokenExpired(token: string) {
+    const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    console.log('expiry :: ',expiry);
+    console.log('test time :: ',Math.floor((new Date).getTime()/ 1000)-expiry);
+    return (Math.floor((new Date).getTime() / 1000)) >= expiry;
   }
 
 

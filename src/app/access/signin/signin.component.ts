@@ -60,16 +60,16 @@ export class SigninComponent implements OnInit {
             // sessionStorage.setItem('userId',jsonValues["userId"]);
             // this.router.navigate(['admin'])
 
-            if (this.tokenExpired(res)) {
-              // token expired
-              console.log('expired');
-              this.authService.generateToken(this.authSharedService.getLoggedInToken()).subscribe(
-                res => {
-                  console.log("refresh token resp ",res);
-                  this.authSharedService.tokenSetup(res);
-                })
+            // if (this.tokenExpired(res)) {
+            //   // token expired
+            //   console.log('expired');
+            //   this.authService.generateToken(this.authSharedService.getLoggedInToken()).subscribe(
+            //     res => {
+            //       console.log("refresh token resp ",res);
+            //       this.authSharedService.tokenSetup(res);
+            //     })
 
-            } else {
+            // } else {
               // token valid
               console.log('not expired');
               this.errorMessage = null;
@@ -85,11 +85,11 @@ export class SigninComponent implements OnInit {
               // sessionStorage.setItem('userId', decodedJwtData.userId);
               this.router.navigate(['admin']);
             }
-          }
-          else {
-            console.log("error returned");
-            this.validationError=true;
-          }
+          // }
+          // else {
+          //   console.log("error returned");
+          //   this.validationError=true;
+          // }
         },
         (err) => {
           console.log("error code ", err.error);

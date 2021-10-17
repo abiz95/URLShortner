@@ -78,7 +78,7 @@ export class PremiumGeneralUrlComponent implements OnInit {
             this.premiumUrlFailedMessage = false;
             this.premiumrlSuccessMessage = true;
             // this.premiumShortenUrl = "http://localhost:4200/"+res;
-            this.premiumShortenUrl = `${environment.hostUrl}/`+res;
+            this.premiumShortenUrl = `${environment.hostUrl}` + '/' + res;
             // this.QRvalue = this.premiumShortenUrl;
             // this.QACodeInd = true;
             this.QRData={ind: true, url: this.premiumShortenUrl};

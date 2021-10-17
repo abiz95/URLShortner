@@ -17,6 +17,7 @@ export class PremiumCustomUrlComponent implements OnInit {
   customData:any;
   userId: string;
   customAvailability: any;
+  customUrlVal: any = 'firstTime';
   customAvailabilityInd: any = false;
   customAvailabilityMessage: any = false;
   postCustomUrl: any;
@@ -84,7 +85,7 @@ export class PremiumCustomUrlComponent implements OnInit {
     actualUrl: this.premiumCustomForm.get('premiumCustomActualUrl').value,
     shortenUrl: this.premiumCustomForm.get('premiumCustomUrl').value
   }
-  if (this.premiumCustomForm.valid) {
+  if (this.premiumCustomForm.valid && this.premiumCustomForm.get('premiumCustomUrl').value  !==  this.customUrlVal) {
     this.postCustomUrl = this.premiumUrlService.saveCustomPremiumUrlDetails(this.customData).subscribe(
       (res)=>{
         console.log("save custom premium URL: "+res)
@@ -99,8 +100,9 @@ export class PremiumCustomUrlComponent implements OnInit {
           this.customUrlSuccessMessage = true;
           this.customUrlFailedMessage = false;
           this.customUrlOtherFailedMessage = false;
+          this.customUrlVal = this.premiumCustomForm.get('premiumCustomUrl').value;
           // this.customShortenUrl="http://localhost:4200/"+res
-          this.customShortenUrl=`${environment.hostUrl}/`+res
+          this.customShortenUrl=`${environment.hostUrl}` + '/' + res
           // this.QRvalue=this.customShortenUrl;
           // this.QACodeInd = true;
           this.QRData={ind: true, url: this.customShortenUrl};
