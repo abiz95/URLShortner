@@ -1,0 +1,13 @@
+<div *ngIf="doughnutChartData !== null" class="chart-wrapper">
+    <canvas baseChart 
+    height="300px"
+    width="400px"
+    [data]="doughnutChartData"
+    [labels]="doughnutChartLabels"
+    [options]="doughnutChartOptions"
+    [chartType]="doughnutChartType">
+  </canvas>
+</div>
+<div *ngIf="noDataMsg === true" class="chart-wrapper">
+  No Data Available!
+</div>

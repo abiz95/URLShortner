@@ -1,0 +1,52 @@
+.customStyle {
+    flex-direction: row !important;
+}
+.customField {
+    width: 100%;
+}
+
+.customActualField{
+    width: 100%;
+}
+
+.availabilityCheck {
+
+    margin-left: 20px;
+
+    #availabilityBtn {
+        margin-top: 6px;
+        height: 40px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .customStyle {
+        flex-direction: column !important;
+    }
+
+    .availabilityCheck {
+
+        margin-left: 0px !important;
+    
+        #availabilityBtn {
+            margin-top: 0px !important;
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 672px) {
+    .customStyle {
+        flex-direction: column !important;
+    }
+
+    .availabilityCheck {
+
+        margin-left: 0px !important;
+    
+        #availabilityBtn {
+            margin-top: 0px !important;
+        }
+    }
+
+}

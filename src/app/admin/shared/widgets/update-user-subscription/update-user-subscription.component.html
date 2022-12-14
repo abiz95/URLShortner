@@ -1,0 +1,27 @@
+<div class="edit">
+    <h2 mat-dialog-title>Update subscription</h2>
+    <mat-dialog-content style="overflow: hidden !important; max-height: initial;">
+        <!-- <p>{{data|json}}</p> -->
+        <form [formGroup]="userSubscriptionForm" (ngSubmit)="saveForm()">
+            <p style="color: red;" *ngIf="errorInd">{{errorMessage}}</p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Subscriptions</mat-label>
+                    <mat-select  formControlName="plan">
+                        <mat-option *ngFor="let plans of planDetails" value="{{plans}}">{{ plans }}</mat-option>
+                        <!-- <mat-option value="Silver">Silver</mat-option>
+                        <mat-option value="Gold">Gold</mat-option>
+                        <mat-option value="Platinum">Platinum</mat-option> -->
+                        <!-- <mat-option value="Beta">Beta</mat-option> -->
+                    </mat-select>
+                    <mat-error *ngIf="formValues.plan.errors?.required">Must select a plan</mat-error>
+                </mat-form-field>
+            </p>
+            <mat-dialog-actions>
+                <button type="submit" mat-button>Update</button>
+                <button mat-button mat-dialog-close>Cancel</button>
+            </mat-dialog-actions>
+            <br>
+        </form>
+    </mat-dialog-content>
+</div>

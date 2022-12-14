@@ -1,0 +1,41 @@
+<form [formGroup]="premiumCustomForm" (ngSubmit)="savePremiumCustomUrl()">
+    <div class="customStyle">
+        <p fxFlex="80">
+            <mat-form-field class="customField" appearance="outline">
+                <mat-label>Custom URL</mat-label>
+                <input formControlName="premiumCustomUrl" matInput placeholder="Enter the custom URL">
+                <mat-hint style="color: green;" *ngIf="customAvailabilityMessage">Hurry! it is available!</mat-hint>
+                <mat-hint style="color: red;" *ngIf="customAvailabilityInd">The custom URL is taken. Please try again!</mat-hint>
+                <mat-error *ngIf="premiumCustomValues.premiumCustomUrl.errors?.required">Required a valid custom URL</mat-error>
+                <!-- <mat-error *ngIf="customAvailabilityInd">The custom URL is taken. Please try again!</mat-error> -->
+            </mat-form-field>
+        </p>
+        <p class="availabilityCheck" fxFlex="20">
+            <button id="availabilityBtn" (click)="checkCustomUrlAvailability()" type="button" mat-raised-button color="primary">Check availability</button>
+        </p>
+        
+    </div>
+    <p>
+        <mat-form-field class="customActualField" appearance="outline">
+            <mat-label>Actual URL</mat-label>
+            <input formControlName="premiumCustomActualUrl" matInput placeholder="Enter the premium URL">
+            <mat-error *ngIf="premiumCustomValues.premiumCustomActualUrl.errors?.required">Required a valid URL</mat-error>
+            <!-- <mat-error *ngIf="premiumForm.email.errors?.email">Please enter a valid email address</mat-error> -->
+        </mat-form-field>
+    </p>
+    <div *ngIf="customUrlOtherFailedMessage">
+        <p style="color: red;">Oops something went wrong!</p>
+        <br>
+    </div>
+    <div *ngIf="customUrlFailedMessage">
+        <p style="color: red;">The custom URL already exist. Please change the custom URL and try again!</p>
+        <br>
+    </div>
+    <div *ngIf="customUrlSuccessMessage">
+        <p style="color: green;">Shorten link: <a href="{{customShortenUrl}}" target="_blank">{{customShortenUrl}}</a><button style="margin-left: 10px;" type="button" mat-raised-button (click)="copiedMessage()"><mat-icon>file_copy</mat-icon></button></p>
+        <br>
+    </div>
+    <button type="submit" mat-raised-button color="primary">Generate</button>
+    <!-- <br> -->
+    <br>
+</form>

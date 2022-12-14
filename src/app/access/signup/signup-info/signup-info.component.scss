@@ -1,0 +1,264 @@
+mat-form-field {
+    width: 200px;
+    height: 65px;
+}
+
+#name {
+    display: flex;
+    flex-direction: row !important; 
+    
+    p {
+        margin-right: 2% !important;
+    }
+}
+
+#pc {
+    display: flex;
+    flex-direction: row !important; 
+    
+    p {
+        margin-right: 2% !important;
+    }
+}
+
+#create_button{
+    color: white;
+    background-color: blue;
+}
+
+#google_button{
+    color: white;
+    background-color: #EA4335;
+}
+
+#facebook_button{
+    color: white;
+    background-color: #4267B2;
+}
+
+// #content {
+    // padding-bottom: 120px;
+    // align-items: flex-start
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+// }
+
+.container {
+    // padding-top: 100px;
+    // background-image: url("/assets/img/main-bg.png");
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+//main
+.main {
+    // margin: 50px;
+    height: 100%;
+    // padding-left: 50px;
+    // padding-right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
+
+form{
+    height: 500px;
+}
+
+#bigField {
+    width: 408px;
+}
+
+button{
+    width: 408px;
+}
+
+mat-divider {
+    margin-top: 20px;
+}
+
+// img {
+//     height: 400px;
+//     padding-top: 10px;
+// }
+// 992px
+@media screen and (max-width: 672px) {
+
+    //main
+    .main{
+        flex-direction: column !important;
+        height: auto;
+    }
+
+    #content {
+        // padding-bottom: 120px;
+        align-items: flex-start
+    }
+
+    mat-form-field {
+        width: 300px;
+    }
+
+    #bigField {
+        width: 300px;
+    }
+
+    img {
+        display: none;
+    }
+
+    button{
+        width: 300px;
+    }
+
+    mat-divider {
+        margin-top: 20px;
+        width: 300px;
+    }
+
+    form {
+        // p {
+        //     text-align: center;
+        // }
+        padding-top: 20px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+  }
+
+  @media only screen and (max-width: 1090px) {
+
+    #name {
+        display: flex;
+        flex-direction: column !important; 
+    }
+
+    #pc {
+        display: flex;
+        flex-direction: column !important; 
+    }
+
+    img {
+        height: 200px;
+    }
+
+    mat-form-field {
+        width: 300px;
+    }
+
+    #bigField {
+        width: 300px;
+    }
+
+    button{
+        width: 300px;
+        
+    }
+
+    mat-divider {
+        margin-top: 20px;
+        width: 300px;
+    }
+
+  }
+
+  @media only screen and (min-width: 1090px) {
+          
+    .container {
+        background-image: url("/assets/img/main-bg.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        // position: relative;
+    }
+  }
+
+//   p {
+//     font-family: Lato;
+//   }
+  
+  img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+  .hoverable{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    height: 200px;
+    width: 200px;
+    // border: 5px solid #000;
+    border-radius: 50%;
+
+    .hover-text{
+        position: absolute;
+        display: none;
+        top: 50%;
+        left:  50%;
+        transform: translate(-50%,-50%);   
+        z-index: 2;
+    }
+
+    .background{
+        position: absolute;
+        display: none;
+        // margin-top: 10px;
+        // padding-bottom: 10px;
+        top: 0;
+        left:  0;
+        bottom: 0;
+        right: 0;
+        background-color:rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+        border-radius: 50%;
+        z-index: 1;
+    }
+  }
+//   .hoverable .hover-text{
+//     position: absolute;
+//     display: none;
+//     top: 50%;
+//     left:  50%;
+//     transform: translate(-50%,-50%);   
+//     z-index: 2;
+//   }
+//   .hoverable .background{
+//     position: absolute;
+//     display: none;
+//     margin-top: 10px;
+//     padding-bottom: 10px;
+//     top: 0;
+//     left:  0;
+//     bottom: 0;
+//     right: 0;
+//     background-color:rgba(255, 255, 255, 0.5);
+//     pointer-events: none;
+//     border-radius: 50%;
+//     z-index: 1;
+//   }
+  .hoverable:hover .hover-text{
+    display: block;
+  }
+  .hoverable:hover .background{
+    display: block;
+  }
+  
+  #fileInput{
+    display: none;
+  }

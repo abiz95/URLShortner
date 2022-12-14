@@ -1,0 +1,32 @@
+<div class="edit">
+    <h2 mat-dialog-title>Edit URL details</h2>
+    <mat-dialog-content style="overflow: hidden !important; max-height: initial;">
+        <!-- <p>{{data|json}}</p> -->
+        <form [formGroup]="editForm" (ngSubmit)="saveForm()">
+            <p style="color: red;" *ngIf="errorInd">{{errorMessage}}</p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Shorten URL</mat-label>
+                    <input formControlName="shortenUrl" matInput placeholder="Update your custom shorten URL here" [readonly]="custom_readonly">
+                    <mat-hint *ngIf="custom_readonly"> Only custom URLs are editable</mat-hint>
+                    <mat-error *ngIf="formValues.shortenUrl.errors?.required">Required a valid custom URL</mat-error>
+                    <!-- <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error> -->
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>URL</mat-label>
+                    <input formControlName="actualUrl" matInput placeholder="Update your URL here">
+                    <mat-error *ngIf="formValues.actualUrl.errors?.required">Required a valid URL</mat-error>
+                    <!-- <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error> -->
+                </mat-form-field>
+            </p>
+            <mat-dialog-actions>
+                <button type="submit" mat-button>Save</button>
+                <button mat-button mat-dialog-close>Cancel</button>
+            </mat-dialog-actions>
+            <br>
+        </form>
+    </mat-dialog-content>
+</div>
+

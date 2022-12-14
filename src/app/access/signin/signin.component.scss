@@ -1,0 +1,90 @@
+.container {
+    // background-image: url("https://pixabay.com/get/g6d6e0871603b251f51c3109e5fd50d5265be3630d3b26cba2e9ae7be4d182f8f0c668af7b730c825a767ca194e51c346.jpg");
+    /* background-position: center; */
+    // background-color: red;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // position: relative;
+    width: 100%;
+    height: 93.2%;
+    display: flex;
+    // align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.side {
+    background-color: white;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    #sideImg {
+        margin-top: 120px;
+        // padding-left: 50px;
+        height: 320px !important;
+    }
+}
+
+.main {
+    // background-color: white;
+    height: 540px;
+    // width: 800px;
+    // display: flex;
+    // align-content: center;
+    // align-items: center;
+    // justify-content: center;
+}
+
+.formCls {
+    background-color: white;
+    width: 400px;
+    display: flex;
+    // flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+form {
+    width: 300px;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+
+    mat-form-field {
+        width: 100%;
+    }
+    // .field {
+    //     display: flex;
+    //     align-content: center;
+    //     justify-content: center;
+    // }
+}
+
+#login_button{
+    color: white;
+    background-color: blue;
+}
+
+#google_button{
+    color: white;
+    background-color: #EA4335;
+}
+
+#facebook_button{
+    color: white;
+    background-color: #4267B2;
+}
+
+@media only screen and (max-width: 920px) {
+    .side {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 672px) {
+    .formCls {
+        width: 100%;
+    }
+}

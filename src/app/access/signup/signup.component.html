@@ -1,0 +1,40 @@
+<app-header></app-header>
+<div class="container">
+    <div class="main" fxLayout="row" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="center">
+        <div  style="display: flex; margin-bottom: 120px; flex-direction: column; justify-content: center; align-items: center;" id="content" fxflex="40%">
+            <img style="height: 300px; width: 300px;" src="/assets/img/desk.png" alt="">
+            <br><br>
+            <h1>Create an Account</h1>
+            <p>Create your account to unlock the custom URL creation capabilities and advanced analytics for better business outflow</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;" fxflex="60%">
+            <form [formGroup]="signupForm" (ngSubmit)="saveForm()">
+                <div *ngIf="errorMessage">
+                    <h2 style="color: red;">{{errorMessage}}</h2>
+                </div>
+                <h2>Sign Up</h2>
+                <p>
+                    <mat-form-field id="bigField" appearance="outline">
+                        <mat-label>email</mat-label>
+                        <input formControlName="email" matInput placeholder="Enter your email Id">
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                        <mat-error *ngIf="formValues.email.errors?.required">Required a valid email Id</mat-error>
+                        <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error>
+                    </mat-form-field>
+                </p>
+                <button id="create_button" type="submit" mat-raised-button>Create your account</button>
+                <br>
+                <mat-divider>OR</mat-divider>
+                <br>
+                <button id="google_button" type="submit" mat-raised-button>Signup with Google</button>
+                <br>
+                <br>
+                <button id="facebook_button" type="submit" mat-raised-button>Signup with Facebook</button>
+                <br>
+                <br>
+                <p>Already a registered user? <a [routerLink]="['../','signin']">Login</a></p>
+            </form>
+        </div>
+    </div>
+</div>

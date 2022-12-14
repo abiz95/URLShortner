@@ -1,0 +1,22 @@
+.basic {
+  display: flex;  
+  flex-direction: row;
+  
+  .info {
+    display: flex;  
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap !important;
+    align-content: center;
+  }
+  
+  #profileImg {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 40px;
+    margin-left: 25px;
+  }
+}

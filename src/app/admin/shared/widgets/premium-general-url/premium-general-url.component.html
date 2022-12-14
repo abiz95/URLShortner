@@ -1,0 +1,24 @@
+<form [formGroup]="premiumForm" (ngSubmit)="savePremiumUrl()">
+    <p>
+        <mat-form-field class="premiumField" appearance="outline">
+            <mat-label>Actual URL</mat-label>
+            <input formControlName="premiumActualUrl" matInput placeholder="Enter the premium URL">
+            <!-- <mat-hint>This is for shorten your URL with 6 character Id</mat-hint> -->
+            <mat-error *ngIf="premiumValues.premiumActualUrl.errors?.required">Required a valid URL</mat-error>
+            <!-- <mat-error *ngIf="premiumForm.email.errors?.email">Please enter a valid email address</mat-error> -->
+        </mat-form-field>
+    </p>
+    <p>This is for shorten your URL with 6 character Id</p>
+    <div *ngIf="premiumUrlFailedMessage">
+        <br>
+        <p style="color: red;">Oops something went wrong!</p>
+        <br>
+    </div>
+    <div *ngIf="premiumrlSuccessMessage">
+        <br>
+        <p style="color: green;">Shorten link: <a href="{{premiumShortenUrl}}" target="_blank">{{premiumShortenUrl}}</a><button style="margin-left: 10px;" type="button" mat-raised-button (click)="copiedMessage()"><mat-icon>file_copy</mat-icon></button></p>
+        <br>
+    </div>
+    <br>
+    <button type="submit" mat-raised-button color="primary">Generate</button>
+</form>

@@ -1,0 +1,83 @@
+<div>
+    <div class="search-div">
+        <!-- <button mat-raised-button>
+          <mat-icon>add</mat-icon>Create
+        </button> -->
+        <mat-form-field style="width: 70%;" class="search-form-field" floatLabel="never">
+          <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <button style="margin-left: 20px;" mat-raised-button (click)="applyFilter()">Search</button>
+      </div>
+      <div class="mat-elevation-z8">
+        <mat-table [dataSource]="listData"  matSort>
+          <ng-container matColumnDef="actualUrl">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header>URL</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.actualUrl}}</mat-cell>
+            <!-- <mat-cell *matCellDef="let element">{{ (element.actualUrl.length>50)? (element.actualUrl | slice:0:50)+'..':(element.actualUrl) }}</mat-cell> -->
+          </ng-container>
+          <ng-container matColumnDef="shortenUrl">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header>Shorten URL</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.shortenUrl}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="cre_rec_ts">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Created date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.cre_rec_ts | date: 'dd-MM-yyyy'}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="urlStatus">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header>Status</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.urlStatus === 1 ? 'Active' : 'Inactive'}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button color="warn" (click)="deleteUrl(element.shortenUrl)"><mat-icon>delete_outline</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="updateUrlDetails(element)"><mat-icon>edit</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="updateStatus">
+            <mat-header-cell *matHeaderCellDef>Update status</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-raised-button [ngStyle]="{'background-color' : element.urlStatus === 1 ? 'red' : 'green'}" (click)="updateUrlStatus(element)">{{element.urlStatus === 1 ? 'Deactivate' : 'Activate'}}</button>
+            </mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button><mat-icon>launch</mat-icon></button>
+              <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+            </mat-cell>
+          </ng-container> -->
+          <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+              Loading data...
+            </mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+              No data.
+            </mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="nullData">
+            <mat-footer-cell *matFooterCellDef colspan="6">
+              No records to show!
+            </mat-footer-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-footer-row *matFooterRowDef="['nullData']" [ngClass]="{'hide':!noDataMsg===true}"></mat-footer-row>
+          <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':!premiumUrlList!=null}"></mat-footer-row>
+          <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row> -->
+        </mat-table>
+        <div *ngIf="premiumUrlList!=null">
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+</div>

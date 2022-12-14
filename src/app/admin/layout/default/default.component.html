@@ -1,0 +1,12 @@
+<app-header (toggleSideBarForMe)="isSideBarToggled($event)"></app-header>
+
+<mat-drawer-container>
+    <mat-drawer mode="push" [opened]="isSideBarOpen">
+        <app-sidebar></app-sidebar>
+    </mat-drawer>
+    <mat-drawer-content style="background-color: #f1f5f7">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+<app-footer></app-footer>

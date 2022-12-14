@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div class="container">
+    <!-- <h1>Hello</h1> -->
+    <div class="main" fxLayout="row" fxLayoutWrap fxLayoutAlign="center">
+        <div fxflex="40%" class="side">
+            <img id="sideImg" src="/assets/img/user.png" alt="image">
+        </div>
+        <div fxflex="60%" class="formCls">
+            <form [formGroup]="signinForm" (ngSubmit)="saveForm()">
+                <br>
+                <h1>Login</h1>
+                <div *ngIf="errorMessage">
+                    <p style="color: red;">{{errorMessage}}</p>
+                    <br>
+                </div>
+                <p class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>email</mat-label>
+                        <input formControlName="email" matInput placeholder="Enter your email Id">
+                        <mat-error *ngIf="formValues.email.errors?.required">Required a valid email Id</mat-error>
+                        <mat-error *ngIf="formValues.email.errors?.email">Please enter a valid email address</mat-error>
+                    </mat-form-field>
+                </p>
+                <p class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="formValues.password.errors?.required">Password field cannot be empty</mat-error>
+                        <mat-error *ngIf="formValues.password.errors?.invalidPassword">Password doesn't matched the criteria, please follow the instructions</mat-error>
+                    </mat-form-field>
+                </p>
+                <p><a [routerLink]="['../','signin']">Forgot you password?</a></p>
+                <p><a [routerLink]="['../','signup']">Not registered yet?</a></p>
+                <button id="login_button" type="submit" mat-raised-button>Login</button>
+                <br>
+                <mat-divider>OR</mat-divider>
+                <br>
+                <button id="google_button" type="submit" mat-raised-button>Signup with Google</button>
+                <br>
+                <button id="facebook_button" type="submit" mat-raised-button>Signup with Facebook</button>
+                <br>
+                <br>
+            </form>
+            <!-- <form [formGroup]="signinForm">
+                <p>
+                    <mat-form-field appearance="outline">
+                      <mat-label>email</mat-label>
+                      <input matInput placeholder="Enter your email Id">
+                      <mat-hint>Hint</mat-hint>
+                    </mat-form-field>
+                </p>
+            </form> -->
+        </div>
+    </div>
+</div>
